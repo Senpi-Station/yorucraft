@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 use std::process::Stdio;
 
 use thiserror::Error;
@@ -70,7 +70,7 @@ impl ChildProcess {
         Ok(())
     }
 
-    pub fn is_running(&self) -> bool {
+    pub fn is_running(&mut self) -> bool {
         self.child.try_wait().ok().flatten().is_none()
     }
 }

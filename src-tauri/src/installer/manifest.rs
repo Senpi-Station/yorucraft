@@ -247,7 +247,7 @@ pub async fn resolve_version(client: &Client, version_id: &str) -> Result<Versio
         let parent_entry = manifest
             .versions
             .iter()
-            .find(|v| v.id == parent_id)
+            .find(|v| v.id == *parent_id)
             .ok_or_else(|| ManifestError::VersionNotFound(parent_id.clone()))?;
 
         let parent_data = fetch_version_data(client, &parent_entry.url).await?;

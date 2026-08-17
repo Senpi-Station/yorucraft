@@ -59,22 +59,19 @@ pub fn find_java() -> Vec<JavaInstallation> {
         }
     }
 
-    let common_dirs = if cfg!(windows) {
+    let common_dirs: Vec<PathBuf> = if cfg!(windows) {
         vec![
-            "C:\\Program Files\\Java",
-            "C:\\Program Files (x86)\\Java",
-            &format!("{}\\.jdks", dirs().home_dir().display()),
+            PathBuf::from("C:\\Program Files\\Java"),
+            PathBuf::from("C:\\Program Files (x86)\\Java"),
+            home_dir().join(".jdks"),
         ]
     } else if cfg!(target_os = "macos") {
         vec![
-            "/Library/Java/JavaVirtualMachines",
-            &format!(
-                "{}/Library/Java/JavaVirtualMachines",
-                dirs().home_dir().display()
-            ),
+            PathBuf::from("/Library/Java/JavaVirtualMachines"),
+            home_dir().join("Library/Java/JavaVirtualMachines"),
         ]
     } else {
-        vec!["/usr/lib/jvm", "/usr/java"]
+        vec![PathBuf::from("/usr/lib/jvm"), PathBuf::from("/usr/java")]
     };
 
     for dir in &common_dirs {
@@ -243,12 +240,8 @@ pub async fn auto_select_java(mc_version: &str, game_dir: &Path) -> Result<PathB
     download_mojang_java(game_dir, mc_version).await
 }
 
-struct Dirs;
-
-impl Dirs {
-    fn home_dir() -> PathBuf {
-        dirs::home_dir().unwrap_or_else(|| PathBuf::from("."))
-    }
+fn home_dir() -> PathBuf {
+    dirs::home_dir().unwrap_or_else(|| PathBuf::from("."))
 }
 
 #[cfg(test)]

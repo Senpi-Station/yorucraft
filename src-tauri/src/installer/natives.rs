@@ -1,7 +1,6 @@
 use std::path::{Path, PathBuf};
 
 use thiserror::Error;
-use tokio::fs;
 use zip::ZipArchive;
 
 #[derive(Error, Debug)]

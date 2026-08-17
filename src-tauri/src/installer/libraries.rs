@@ -85,7 +85,7 @@ impl LibraryResolver {
         }
         let (group, artifact, version, classifier) = Self::parse_maven(coordinate)
             .expect("invalid coordinate in artifact_path");
-        let group_path = group.replace('.', '/');
+        let group_path = group.replace('.', "/");
         let filename = match classifier {
             Some(ref c) => format!("{}-{}-{}.jar", artifact, version, c),
             None => format!("{}-{}.jar", artifact, version),
@@ -97,7 +97,7 @@ impl LibraryResolver {
             .join(filename)
     }
 
-    pub fn download_urls(&self, coordinate: &str, path: &str, custom_url: Option<&str>) -> Vec<String> {
+    pub fn download_urls(&self, _coordinate: &str, path: &str, custom_url: Option<&str>) -> Vec<String> {
         let mut urls = Vec::new();
         if let Some(url) = custom_url {
             let base = if url.ends_with('/') { url } else { &format!("{}/", url) };

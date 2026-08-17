@@ -56,7 +56,7 @@ impl OfflineAuth {
 pub fn offline_uuid(username: &str) -> String {
     let input = format!("OfflinePlayer:{}", username);
     let digest = Md5::digest(input.as_bytes());
-    let mut bytes = digest.0;
+    let mut bytes: [u8; 16] = digest.into();
 
     bytes[6] = (bytes[6] & 0x0f) | 0x30;
     bytes[8] = (bytes[8] & 0x3f) | 0x80;
