@@ -6013,6 +6013,7 @@ dependencies = [
  "env_logger",
  "futures",
  "hex",
+ "libc",
  "log",
  "md-5",
  "once_cell",

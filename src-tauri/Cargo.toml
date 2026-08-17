@@ -41,3 +41,6 @@ reqwest-retry = "0.6"
 thiserror = "1"
 anyhow = "1"
 
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
